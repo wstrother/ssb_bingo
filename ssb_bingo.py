@@ -1,5 +1,5 @@
 import json
-from constants import TEMPLATES, UNIQUE, UNIQUE_KEY
+from constants import TEMPLATES, UNIQUE, UNIQUE_KEY, IMPOSSIBLE
 
 """
 This file is used to generate the "goal_list.json" dictionary.
@@ -20,7 +20,9 @@ def fill_depth_1(template, fill):
     output = []
 
     for item in fill:
-        output.append(template.format(item))
+        new_goal = template.format(item)
+        if new_goal not in IMPOSSIBLE:
+            output.append(new_goal)
 
     return output
 
@@ -33,7 +35,9 @@ def fill_depth_2(template, fill_a, fill_b):
         selections.append(a)
 
         for b in [x for x in fill_b if x not in selections]:
-            output.append(template.format(a, b))
+            new_goal = template.format(a, b)
+            if new_goal not in IMPOSSIBLE:
+                output.append(new_goal)
 
     return output
 
@@ -50,7 +54,9 @@ def fill_depth_3(template, fill_a, fill_b, fill_c):
             selections_b.append(b)
 
             for c in [x for x in fill_c if x not in selections_b + selections_a]:
-                output.append(template.format(a, b, c))
+                new_goal = template.format(a, b, c)
+                if new_goal not in IMPOSSIBLE:
+                    output.append(new_goal)
 
     return output
 

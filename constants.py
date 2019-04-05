@@ -143,14 +143,13 @@ BEAT_VH_CHOICE = "Beat Very Hard (1 Stock) w/ {}"
 BTT_CHOICE = "Beat Break the Targets w/ {}, {}, and {}"
 BTP_CHOICE = "Beat Board the Platforms w/ {}, {}, and {}"
 BTT_B_MOVE = "Beat Break the Targets using only B moves with {}"
-WPN_KO = "Get a KO with the {}"
-HEAL_3 = "Use 3 different {}s (in 1P Game or VS Mode)"
-PKMN_CATCH = "Catch a {} or {}"
+WPN_KO = "Get a KO (in 1P Game) with the {}"
+HEAL_3 = "Use 3 different {}s (in 1P Game)"
+PKMN_CATCH = "Catch a {} or {} (in 1P Game)"
 BONUS = "Get the {} bonus"
 STAGE_KO = "Get a stage KO with {}"
 MEME_KO = "Defeat {} (in 1P Game) using only {}"
-BTP_FAST = "Beat Board the Platforms in under 1 minute w/ {}"
-BTT_FAST = "Beat Break the Targets in under 1 minute w/ {}"
+BONUS_FAST = "Beat Both Bonus Games w/ {}"
 UNIQUE_KEY = "unique"
 
 UNIQUE = [
@@ -164,7 +163,14 @@ UNIQUE = [
     "Complete 6 different Board the Platforms stages",
     "Catch a Mew",
     "Break an opponent's shield",
-    "Win a 1 v 3 against Level 9 CPUs"
+    "Win a 1 v 3 against Level 9 CPUs",
+    "Get an Opponent to 200%",
+    "KO an Ally in (1P Game)",
+    "4 Yoshis of the same color on screen"
+]
+
+IMPOSSIBLE = [
+    MEME_KO.format(CLASSIC_LEVELS[10], MEME_MOVES[0])
 ]
 
 TEMPLATES = {
@@ -173,8 +179,7 @@ TEMPLATES = {
     BEAT_VH_CHOICE: (CHARACTERS,),
     BTT_CHOICE: (CHARACTERS, CHARACTERS, CHARACTERS),
     BTP_CHOICE: (CHARACTERS, CHARACTERS, CHARACTERS),
-    BTP_FAST: (CHARACTERS,),
-    BTT_FAST: (CHARACTERS,),
+    BONUS_FAST: (CHARACTERS,),
     BTT_B_MOVE: (CHARACTERS,),
     WPN_KO: (WEAPONS,),
     HEAL_3: (HEALING_ITEMS,),

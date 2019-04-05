@@ -16,8 +16,7 @@ DISTRIBUTION = [
     # 5 modified bonus game goals
     {K: [
         goal.BTT_B_MOVE,
-        goal.BTP_FAST,
-        goal.BTT_FAST
+        goal.BONUS_FAST
     ], N: 5},
 
     # 5 item/stage goals
