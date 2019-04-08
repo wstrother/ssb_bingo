@@ -1,5 +1,5 @@
 import json
-from constants import TEMPLATES, UNIQUE, UNIQUE_KEY, IMPOSSIBLE
+from goals import TEMPLATES, UNIQUE, UNIQUE_KEY, IMPOSSIBLE
 
 """
 This file is used to generate the "goal_list.json" dictionary.

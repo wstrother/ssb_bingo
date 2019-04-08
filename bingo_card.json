@@ -1,77 +1,77 @@
 [
-  {
-    "name": "Beat Break the Targets in under 1 minute w/ Samus"
-  },
-  {
-    "name": "Get the Hawk bonus"
-  },
-  {
-    "name": "Get the Special Move bonus"
-  },
-  {
-    "name": "Beat Break the Targets in under 1 minute w/ Yoshi"
-  },
-  {
-    "name": "Defeat Master Hand (in 1P Game) using only Falcon Neutral B"
-  },
-  {
-    "name": "SD on Break the Targets with every character"
-  },
-  {
-    "name": "Get the No Damage bonus"
-  },
-  {
-    "name": "Beat Break the Targets w/ Link, Samus, and Jigglypuff"
-  },
-  {
-    "name": "Beat Board the Platforms in under 1 minute w/ Luigi"
-  },
-  {
-    "name": "Get a KO with the HomeRunBat"
-  },
-  {
-    "name": "Catch a Goldeen or Meowth"
-  },
-  {
-    "name": "Get the Pacifist bonus"
-  },
-  {
-    "name": "Beat Board the Platforms w/ Samus, Ness, and Kirby"
-  },
-  {
-    "name": "Complete 6 different Board the Platforms stages"
-  },
-  {
-    "name": "Beat Break the Targets in under 1 minute w/ Falcon"
-  },
-  {
-    "name": "Break an opponent's shield"
-  },
-  {
-    "name": "Beat Board the Platforms in under 1 minute w/ Jigglypuff"
-  },
-  {
-    "name": "Beat Normal (3 Stock) w/ Luigi and Kirby"
-  },
-  {
-    "name": "Get a KO with the Bob-omb"
-  },
-  {
-    "name": "Spike an opponent through the acid on Planet Zebes"
-  },
-  {
-    "name": "Beat Very Hard (1 Stock) w/ Samus"
-  },
-  {
-    "name": "Beat Very Easy (5 Stock) w/ Falcon, Ness, and Pikachu"
-  },
-  {
-    "name": "Get a KO with the Fan"
-  },
-  {
-    "name": "Get the Pokemon Finish bonus"
-  },
-  {
-    "name": "Get a stage KO with a Pokemon on Saffron City"
-  }
+    {
+        "name": "Get a stage KO with the Acid on Planet Zebes"
+    },
+    {
+        "name": "Get an Opponent to 200%"
+    },
+    {
+        "name": "Get the Special Move Bonus"
+    },
+    {
+        "name": "Beat Normal (3 Stock) w/ Link and Falcon"
+    },
+    {
+        "name": "Get the Pokemon Finish Bonus"
+    },
+    {
+        "name": "Beat Very Easy (5 Stock)"
+    },
+    {
+        "name": "Get the Good Friend or True Friend Bonus"
+    },
+    {
+        "name": "Catch a Beedrill or Staryu (in 1P Game)"
+    },
+    {
+        "name": "Defeat Kirby Team (in 1P Game) using only DK Neutral B"
+    },
+    {
+        "name": "Beat Break the Targets w/ Samus, Kirby, and Pikachu"
+    },
+    {
+        "name": "Get the Cheap Shot Bonus"
+    },
+    {
+        "name": "SD on Board the Platforms with every character"
+    },
+    {
+        "name": "Beat Very Hard (1 Stock) w/ Link"
+    },
+    {
+        "name": "Get a KO (in 1P Game) with the MotionSensorBomb"
+    },
+    {
+        "name": "Get the Judo Warrior or Throw Down Bonus"
+    },
+    {
+        "name": "Break Fox's Reflector"
+    },
+    {
+        "name": "Get the Mew Catch Bonus"
+    },
+    {
+        "name": "Get the Speed Demon or Speed King Bonus"
+    },
+    {
+        "name": "Beat Break the Targets using only B moves with Ness"
+    },
+    {
+        "name": "Beat Very Hard (1 Stock)"
+    },
+    {
+        "name": "Get the Shooter Bonus"
+    },
+    {
+        "name": "Beat Normal (3 Stock)"
+    },
+    {
+        "name": "Beat Board the Platforms w/ DK, Fox, and Jigglypuff"
+    },
+    {
+        "name": "Get the Star Finish Bonus"
+    },
+    {
+        "name": "Defeat Samus (in 1P Game) using only Ness Up B"
+    }
 ]

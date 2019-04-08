@@ -60,7 +60,6 @@ SNORLAX = "Snorlax"
 CHANCEY = "Chancey"
 HITMONLEE = "Hitmonlee"
 GOLDEEN = "Goldeen"
-MEW = "Mew"
 BLASTOISE = "Blastoise"
 KOFFING = "Koffing"
 MEOWTH = "Meowth"
@@ -68,7 +67,7 @@ STARYU = "Staryu"
 
 PKMN = [
     CLEFAIRY, BEEDRILL, CHARIZARD, SNORLAX,
-    CHANCEY, HITMONLEE, GOLDEEN, MEW,
+    CHANCEY, HITMONLEE, GOLDEEN,
     BLASTOISE, KOFFING, MEOWTH, STARYU
 ]
 
@@ -109,7 +108,6 @@ STAGE_KILLS = [
 MEME_MOVES = [
     "Kirby Neutral B",
     "Kirby Up B",
-    "Fox Neutral B",
     "DK Neutral B",
     "Yoshi Neutral B",
     "Puff Down B",
@@ -135,43 +133,70 @@ CLASSIC_LEVELS = [
     "Master Hand"
 ]
 
-# goal templates and unique goals
+# goal templates
 
-BEAT_VE_CHOICE = "Beat Very Easy (5 Stock) w/ {}, {}, and {}"
-BEAT_N_CHOICE = "Beat Normal (3 Stock) w/ {} and {}"
-BEAT_VH_CHOICE = "Beat Very Hard (1 Stock) w/ {}"
+#   bonus games
 BTT_CHOICE = "Beat Break the Targets w/ {}, {}, and {}"
 BTP_CHOICE = "Beat Board the Platforms w/ {}, {}, and {}"
 BTT_B_MOVE = "Beat Break the Targets using only B moves with {}"
+BONUS_BOTH = "Beat Both Bonus Games w/ {}"
+
+#   1p mode goals
+BEAT_VE_CHOICE = "Beat Very Easy (5 Stock) w/ {}, {}, and {}"
+BEAT_N_CHOICE = "Beat Normal (3 Stock) w/ {} and {}"
+BEAT_VH_CHOICE = "Beat Very Hard (1 Stock) w/ {}"
+
+#   RNG goals
 WPN_KO = "Get a KO (in 1P Game) with the {}"
 HEAL_3 = "Use 3 different {}s (in 1P Game)"
 PKMN_CATCH = "Catch a {} or {} (in 1P Game)"
-BONUS = "Get the {} bonus"
 STAGE_KO = "Get a stage KO with {}"
-MEME_KO = "Defeat {} (in 1P Game) using only {}"
-BONUS_FAST = "Beat Both Bonus Games w/ {}"
-UNIQUE_KEY = "unique"
 
-UNIQUE = [
-    "Beat Very Easy (5 Stock) with No Continues",
-    "Beat Normal (3 Stock) with No Continues",
-    "Beat Very Hard (1 Stock)",
+#   Points Goals
+POINTS = "Get the {} Bonus"
+
+#   Challenge Goals
+MEME_KO = "Defeat {} (in 1P Game) using only {}"
+
+# unique goals
+
+UNIQUE_KEY = "unique"
+UNIQUE_BONUS = [
     "SD on Board the Platforms with every character",
     "SD on Break the Targets with every character",
-    "Spike an opponent through the acid on Planet Zebes",
     "Complete 6 different Break the Targets stages",
-    "Complete 6 different Board the Platforms stages",
-    "Catch a Mew",
+    "Complete 6 different Board the Platforms stages"
+]
+UNIQUE_SPEEDRUN = [
+    "Beat Very Easy (5 Stock)",
+    "Beat Normal (3 Stock)",
+    "Beat Very Hard (1 Stock)",
+    "Beat Very Hard (1 Stock) w/ No Continues"
+]
+UNIQUE_RNG = [
+    "Get the Mew Catch Bonus"
+]
+UNIQUE_CHALLENGE = [
+    "Spike an opponent through the acid on Planet Zebes",
     "Break an opponent's shield",
     "Win a 1 v 3 against Level 9 CPUs",
+    "KO a Stage Pokemon on Saffron City",
+    "Break Fox's Reflector",
     "Get an Opponent to 200%",
     "KO an Ally in (1P Game)",
-    "4 Yoshis of the same color on screen"
+    "Get 4 Yoshis of the same color on screen"
 ]
+UNIQUE = UNIQUE_BONUS + UNIQUE_SPEEDRUN + UNIQUE_RNG + UNIQUE_CHALLENGE
+
+# Impossible goals
 
 IMPOSSIBLE = [
-    MEME_KO.format(CLASSIC_LEVELS[10], MEME_MOVES[0])
+    MEME_KO.format(CLASSIC_LEVELS[10], MEME_MOVES[0]),
+    MEME_KO.format(CLASSIC_LEVELS[10], MEME_MOVES[3])
 ]
+
+
+# Pairings of goal templates and iterables to choose from
 
 TEMPLATES = {
     BEAT_VE_CHOICE: (CHARACTERS, CHARACTERS, CHARACTERS),
@@ -179,12 +204,12 @@ TEMPLATES = {
     BEAT_VH_CHOICE: (CHARACTERS,),
     BTT_CHOICE: (CHARACTERS, CHARACTERS, CHARACTERS),
     BTP_CHOICE: (CHARACTERS, CHARACTERS, CHARACTERS),
-    BONUS_FAST: (CHARACTERS,),
+    BONUS_BOTH: (CHARACTERS,),
     BTT_B_MOVE: (CHARACTERS,),
     WPN_KO: (WEAPONS,),
     HEAL_3: (HEALING_ITEMS,),
     PKMN_CATCH: (PKMN, PKMN),
-    BONUS: (BONUSES,),
+    POINTS: (BONUSES,),
     STAGE_KO: (STAGE_KILLS,),
     MEME_KO: (CLASSIC_LEVELS, MEME_MOVES),
 }

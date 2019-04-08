@@ -1,64 +1,116 @@
 import json
-import random
-import constants as goal
+from random import choice
+import goals
+from board import BingoBoard
 
-K, N = "keys", "number"
+file = open("goal_dict.json")
+GOAL_DICT = json.load(file)
+file.close()
 
-DISTRIBUTION = [
-    # 6 single choice categories
-    {K: [goal.BEAT_VE_CHOICE], N: 1},
-    {K: [goal.BEAT_N_CHOICE], N: 1},
-    {K: [goal.BEAT_VH_CHOICE], N: 1},
-    {K: [goal.BTT_CHOICE], N: 1},
-    {K: [goal.BTP_CHOICE], N: 1},
-    {K: [goal.MEME_KO], N: 1},
+BONUS_GAME_GOALS = [
+    goals.BONUS_BOTH,
+    goals.BTT_CHOICE,
+    goals.BTP_CHOICE,
+    goals.BTT_B_MOVE,
+] + goals.UNIQUE_BONUS
 
-    # 5 modified bonus game goals
-    {K: [
-        goal.BTT_B_MOVE,
-        goal.BONUS_FAST
-    ], N: 5},
+SPEEDRUN_GOALS = [
+    goals.BEAT_VE_CHOICE,
+    goals.BEAT_N_CHOICE,
+    goals.BEAT_VH_CHOICE,
+] + goals.UNIQUE_SPEEDRUN
 
-    # 5 item/stage goals
-    {K: [
-        goal.HEAL_3,
-        goal.WPN_KO,
-        goal.STAGE_KO
-    ], N: 4},
-    {K: [goal.PKMN_CATCH], N: 1},
+RNG_GOALS = [
+    goals.WPN_KO,
+    goals.HEAL_3,
+    goals.PKMN_CATCH,
+    goals.STAGE_KO
+] + goals.UNIQUE_RNG
 
-    # 5 1P mode bonus goals
-    {K: [goal.BONUS], N: 5},
+POINTS_GOALS = [
+    goals.POINTS
+]
 
-    # 4 random unique goals
-    {K: [goal.UNIQUE_KEY], N: 4}
+CHALLENGE_GOALS = [
+    goals.MEME_KO
+] + goals.UNIQUE_CHALLENGE
+
+HARD_GOALS = [
+    goals.BTT_B_MOVE,
+    goals.BEAT_VH_CHOICE,
+    goals.STAGE_KO,
+    goals.HEAL_3,
+    goals.MEME_KO,
+    goals.UNIQUE_BONUS[-1],
+    goals.UNIQUE_BONUS[-2],
+    goals.UNIQUE_SPEEDRUN[-1],
+    goals.UNIQUE_RNG[0]
 ]
 
 
-def get_goals(amount, goal_dict, *keys):
-    goals = []
-    for key in keys:
-        goals += goal_dict[key]
+def add_from_goals(board, squares, goal_set):
+    normal = [g for g in goal_set if g not in HARD_GOALS]
+    hard = [g for g in goal_set if g not in normal]
 
-    return random.sample(goals, amount)
+    board.add_rand_goals(squares, normal, hard)
+
+
+def get_from_template(template):
+    g = choice(GOAL_DICT[template])
+    GOAL_DICT[template].remove(g)
+
+    return g
 
 
 if __name__ == "__main__":
-    file = open("goal_dict.json", "r")
-    gd = json.load(file)
-    file.close()
+    bb = BingoBoard()
+    k_sets = bb.get_k_sets()
+    k_sets.sort(key=lambda k: bb.get_k_set_value(k))
 
-    bingo_card = []
-    for item in DISTRIBUTION:
-        bingo_card += get_goals(
-            item[N], gd, *item[K]
+    used = sum([len(k) for k in k_sets])
+    print("{} squares used:".format(used))
+    for k in k_sets:
+        print(k)
+
+    # add bonus game goals to least valuable k set
+    add_from_goals(bb, k_sets.pop(0), BONUS_GAME_GOALS)
+
+    # add speedrun goals to most valuable k set
+    add_from_goals(bb, k_sets.pop(-1), SPEEDRUN_GOALS)
+
+    if len(k_sets) == 1:
+        add_from_goals(bb, k_sets[0], RNG_GOALS)
+        add_from_goals(
+            bb,
+            bb.squares_left(),
+            CHALLENGE_GOALS + POINTS_GOALS
         )
 
-    random.shuffle(bingo_card)
-    for b in bingo_card:
-        print(b)
+    elif len(k_sets) == 2:
+        add_from_goals(bb, k_sets[0], RNG_GOALS)
+        add_from_goals(bb, k_sets[1], CHALLENGE_GOALS)
+        add_from_goals(bb, bb.squares_left(), POINTS_GOALS)
 
-    bingo_card = [{"name": g} for g in bingo_card]
+    elif len(k_sets) == 3:
+        add_from_goals(bb, k_sets[0], RNG_GOALS)
+        add_from_goals(bb, k_sets[1], CHALLENGE_GOALS)
+        add_from_goals(bb, k_sets[2], POINTS_GOALS)
+
+    if bb.squares_left():
+        add_from_goals(bb, bb.squares_left(), POINTS_GOALS)
+
+    json_goals = []
+    for square in bb.SQUARES:
+        goal_name = bb.goals[square]
+        if "{}" in goal_name:
+            goal_name = get_from_template(goal_name)
+
+        print(square, goal_name)
+
+        json_goals.append({
+            "name": goal_name
+        })
+
     file = open("bingo_card.json", "w")
-    json.dump(bingo_card, file, indent=2)
+    json.dump(json_goals, file, indent=4)
     file.close()
