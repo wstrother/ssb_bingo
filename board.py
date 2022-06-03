@@ -78,6 +78,9 @@ class BingoBoard:
 
         return output
 
+    """
+    picks up to 5 different squares that do not share in the same bingos as each other
+    """
     def get_k_squares(self):
         squares = self.SQUARES.copy()
         output = []
@@ -97,10 +100,19 @@ class BingoBoard:
 
         return output
 
+    """
+    returns true if two sets of squares contain at least one of the same squares
+    or else returns false
+    """
     @staticmethod
     def compare_k_sets(k1, k2):
         return any([e in k1 for e in k2])
 
+    """
+    pick a random k_set 500 times, only append it to the output list
+    if it shares no other squares with any of the other k_sets
+    seems a bit overkill
+    """
     def get_k_sets(self):
         uniques = []
 
