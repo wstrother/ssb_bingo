@@ -17,18 +17,17 @@ class Board {
     ];
     ROWS = [
         this.SQUARES.slice(0, 5),
-        this.SQUARES.slice(0, 5),
         this.SQUARES.slice(5, 10),
         this.SQUARES.slice(10, 15),
         this.SQUARES.slice(15, 20),
         this.SQUARES.slice(20)
     ];
     COLS = [
-        this.SQUARES.filter(s => s[0]),
-        this.SQUARES.filter(s => s[1]),
-        this.SQUARES.filter(s => s[2]),
-        this.SQUARES.filter(s => s[3]),
-        this.SQUARES.filter(s => s[4])
+        this.ROWS.map(s => s[0]),
+        this.ROWS.map(s => s[1]),
+        this.ROWS.map(s => s[2]),
+        this.ROWS.map(s => s[3]),
+        this.ROWS.map(s => s[4])
     ];
     D1 = [
         this.ROWS[0][0],
@@ -44,7 +43,7 @@ class Board {
         this.ROWS[1][3],
         this.ROWS[0][4]
     ];
-    BINGOS = this.ROWS.concat(this.COLS, this.D1, this.D2);
+    BINGOS = this.ROWS.concat(this.COLS, [this.D1, this.D2]);
 
     constructor() {
         this.goals = {};
@@ -78,18 +77,18 @@ class Board {
         let output = [];
         let square;
 
-        for (i = 0; i < 5; i++) {
-            if (squares) {
-                square = squares[Math.floor(Math.random * squares.length)];
+        for (let i = 0; i < 5; i++) {
+            if (squares.length) {
+                square = squares[Math.floor(Math.random() * squares.length)];
             } else {
                 return output;
             }
             
             output.push(square);
             
-            this.get_bingos(square).forEach(bingo => {
+            this.getBingos(square).forEach(bingo => {
                 bingo.forEach(square => {
-                    squares.splice(squares.indexOf(square), 1);
+                    if (squares.includes(square)) squares.splice(squares.indexOf(square), 1);
                 });
             });
         }
@@ -100,20 +99,26 @@ class Board {
     // generate K sets until there are no more squares left
     // then order them by their total value
     getKSets() {
-        let squares_left = this.SQUARES.copy();
+        let squares_left = Array.from(this.SQUARES);
         let k;
         let k_sets = [];
 
-        while (squares_left) {
-            k = this.getKSquares(squares_left);
+        while (squares_left.length) {
+            k = this.getKSquares(Array.from(squares_left));
             k_sets.push(k);
             k.forEach(square => {
                 squares_left.splice(squares_left.indexOf(square), 1);
             });
         }
 
-        return k_sets.sort(k => k.reduce((sum, square) => sum + this.getValue(square), 0));
+        return k_sets.sort(k => this.getKValue(k));
     }
+
+    getKValue(k_set) {
+        let sum = 0;
+        k_set.forEach(square => sum += this.getValue(square));
+        return sum / k_set.length;
+    } 
 
     addGoal(square, goal) {
         this.goals[square] = goal;

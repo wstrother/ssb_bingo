@@ -3,19 +3,128 @@
     <head>
         <title>SSB Bingo</title>
         <script src="bingo_card.js"></script>
+        <style>
+            body {
+                margin: 1rem;
+                font-family: Verdana;
+                background-color: rgb(143, 137, 129);
+            }
+
+            #BingoBoard {
+                display: grid;
+                margin: 1rem;
+                grid-template-columns: repeat(5, 1fr);
+                width:550px;
+                height:550px;
+                border:1px solid black;
+            }
+
+            .square {
+                display:flex;
+                border:1px solid black;
+                align-content: center;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .red {
+                background-color: red;
+            }
+            .green {
+                background-color: green;
+            }
+            .blue {
+                background-color: blue;
+            }
+            .orange {
+                background-color: orange;
+            }
+            .purple {
+                background-color: purple;
+            }
+            .darkred {
+                background-color: darkred;
+            }
+            .darkgreen {
+                background-color: darkgreen;
+            }
+            .gold {
+                background-color: goldenrod;
+            }
+            .hovered {
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <h1>SSB Bingo</h1>
+
+        <script src="board.js"></script>
         
         <script>
-            function makeCard() {
-                let element = document.getElementById("GoalText");
-                element.innerHTML = "hello"
+            function makeBoard(board) {
+                let div;
+                let k_sets = board.getKSets();
+                let i = 0;
+
+                console.log(k_sets);
+                k_sets.forEach(k => {
+                    colorKSet(k, [
+                        "red", "blue", "orange", "green", "purple", "darkred", "darkgreen", "gold"
+                    ][i]);
+                    i++;
+                })
             }
+
+            function colorKSet(k_set, color) {
+                k_set.forEach(square => {
+                    div = document.getElementById(square).classList.add(color);
+                });
+            }
+
+            function printSquare(square, value) {
+                return `<div class="square" id="${square}">${square}<br />${value}</div>`;
+            }
+
+            function setSquareMouseOver(square, board) {
+                document.getElementById(square).onmouseenter = () => {
+                    board.getBingos(square).forEach(bingo => bingo.forEach(square => {
+                        highlightSquare(document.getElementById(square));
+                    }));
+                    document.getElementById(square).classList.add('hovered');
+                };
+                document.getElementById(square).onmouseleave = () => {
+                    board.getBingos(square).forEach(bingo => bingo.forEach(square => {
+                        highlightSquare(document.getElementById(square));
+                    }));
+                    document.getElementById(square).classList.remove('hovered');
+                };
+            }
+
+            function highlightSquare(square) {
+                if (square.classList.contains('hovered')) {
+                    square.classList.remove('hovered');
+                } else {
+                    square.classList.add('hovered');
+                }
+            }
+
+            window.onload = () => {
+                const board = new Board();
+                const boardDiv = document.getElementById("BingoBoard");
+                boardDiv.innerHTML = board.SQUARES.reduce(
+                    (prev, next) => prev + printSquare(next, board.getValue(next)), 
+                '');
+                board.SQUARES.forEach(square => {
+                    setSquareMouseOver(square, board);
+                });
+                makeBoard(board);
+            };
         </script>
 
         <button id="MakeCard" onclick="makeCard()">Make Card</button>
         <p id="GoalText"></p>
+        <div id="BingoBoard"></div>
 
     </body>
 </html>
